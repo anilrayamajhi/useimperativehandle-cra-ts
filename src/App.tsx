@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import AccordionImperative from "./AccordionImperative";
+import { useRef, useState } from "react";
+import AccordionDeclarative from "./AccordionDeclarative";
 
-function App() {
+function App(): JSX.Element {
+  console.log("PARENT");
+  const accordionEl = useRef<any>();
+  const [open, setOpen] = useState<boolean>(true);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <>
+        <h1>Imperative</h1>
+        <button onClick={() => accordionEl.current.openAccordion()}>
+          Open Accordion
+        </button>
+        <br />
+        <br />
+        <AccordionImperative ref={accordionEl} title={"Imperative Accordion"} />
+      </>
+      <br />
+      <br />
+      <hr />
+      <br />
+      <h1>Declarative</h1>
+      <button onClick={() => setOpen(true)}>Open Accordion</button>
+      <br />
+      <br />
+
+      <AccordionDeclarative
+        open={open}
+        setOpen={setOpen}
+        title={"Declarative Accordion"}
+      />
     </div>
   );
 }
